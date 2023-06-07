@@ -1,6 +1,6 @@
 import 'package:first_flutter_application/headline/bloc/headline_bloc.dart';
 import 'package:first_flutter_application/headline/model/head_line_domain.dart';
-import 'package:first_flutter_application/headline/widget/head_line_item.dart';
+import 'package:first_flutter_application/headline/widget/head_line_tile.dart';
 import 'package:flutter/material.dart';
 
 class MyHomeScreen extends StatefulWidget {

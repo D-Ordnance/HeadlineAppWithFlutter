@@ -1,4 +1,4 @@
-# first_flutter_application
+# headline_application_with_flutter
 
 A new Flutter project.
 
