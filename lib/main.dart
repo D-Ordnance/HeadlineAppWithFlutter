@@ -1,4 +1,6 @@
-import 'package:first_flutter_application/headline/bloc/counter_bloc.dart';
+import 'package:first_flutter_application/headline/bloc/headline_bloc.dart';
+import 'package:first_flutter_application/headline/pages/home_screen.dart';
+// import 'package:first_flutter_application/headline/widget/head_line_item.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,10 +16,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.dark,
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomeScreen(),
     );
   }
 }
@@ -33,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final CounterBloc _counterBloc = CounterBloc();
+  final HeadLineBloc _counterBloc = HeadLineBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // HeadLineItem(),
             const Text(
               'You have clicked the button this many times:',
             ),

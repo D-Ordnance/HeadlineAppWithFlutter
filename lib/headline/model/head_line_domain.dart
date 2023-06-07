@@ -1,6 +1,10 @@
+import 'package:flutter/material.dart';
+
 class HeadLineDomain{
-  String author = "";
+  String author;
   String title = "";
   String url = "";
-  String imageSrc = "";
+  String urlToImage = "";
+
+  HeadLineDomain({required this.author, required this.title, required this.url, required this.urlToImage});
 }
