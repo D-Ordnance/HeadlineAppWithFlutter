@@ -21,7 +21,7 @@ class HeadLineItem extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: CachedNetworkImageProvider(
-            model.urlToImage,
+            model.urlToImage != null ? model.urlToImage! : "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://d1i4t8bqe7zgj6.cloudfront.net/06-07-2023/t_4c4834f1952a4320b8b35e809127a698_name_nyc_haze.png&w=1440",
           ),
           // image: AssetImage('lib/images/dagger2_sample_image.webp'),
         ),
@@ -36,7 +36,7 @@ class HeadLineItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  model.title,
+                  model.title != null ? model.title! : "NEWS",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -46,7 +46,7 @@ class HeadLineItem extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  model.author,
+                  model.author != null ? model.author! : "Anonymous",
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 13,

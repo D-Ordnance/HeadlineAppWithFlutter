@@ -1,54 +1,58 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-import 'package:swipe_refresh/swipe_refresh.dart';
+import 'package:first_flutter_application/headline/model/head_line_domain.dart';
 
-enum CounterAction{
-  increment,
-  decrement,
-  reset
-}
+enum HeadLineActions { getHeadlines }
 
-class HeadLineBloc{
-  late int counter;
-  final _stateStreamController = StreamController<int>();
+class HeadLineBloc {
+  final _stateStreamController = StreamController<List<HeadLineDomain>>();
 
-  StreamSink<int> get counterSink => _stateStreamController.sink;
+  StreamSink<List<HeadLineDomain>> get headLineSink =>
+      _stateStreamController.sink;
 
-  Stream<int> get counterStream => _stateStreamController.stream;
+  Stream<List<HeadLineDomain>> get headLineStream =>
+      _stateStreamController.stream;
 
+  final _eventStreamController = StreamController<HeadLineActions>();
 
-  final _eventStreamController = StreamController<CounterAction>();
+  StreamSink<HeadLineActions> get eventSink => _eventStreamController.sink;
 
-  StreamSink<CounterAction> get eventSink => _eventStreamController.sink;
+  Stream<HeadLineActions> get eventStream => _eventStreamController.stream;
 
-  Stream<CounterAction> get eventStream => _eventStreamController.stream;
+  HeadLineBloc() {
 
+    eventStream.listen((event) async {
+      if (event == HeadLineActions.getHeadlines) {
+        try {
+          var headLines = await getHeadLines();
+          print("headlines size is ${headLines.length}");
+          headLineSink.add(headLines);
+        } on Exception catch (e) {
+          headLineSink.addError("Something went wrong with message: $e");
+        }
+      }
+    });
+  }
 
-  // final _refreshEventStreamController = StreamController<SwipeRefreshState>();
+  Future<List<HeadLineDomain>> getHeadLines() async {
+    final result = await http.get(Uri.parse(
+        'https://newsapi.org/v2/top-headlines?country=US&apiKey=2d021085c2e64c23927ff485d9f4299b'));
+    Map<String, dynamic> response = json.decode(result.body);
+    if (response["status"] == "ok") {
+      List<HeadLineDomain> articles = (response["articles"] as List)
+          .map((e) => HeadLineDomain.fromJson(e))
+          .toList();
+      headLineSink.add(articles);
+      return articles;
+    } else {
+      return List.empty();
+    }
+  }
 
-  // StreamSink<SwipeRefreshState> get refreshStateSink => _refreshEventStreamController.sink;
-
-  // Stream<SwipeRefreshState> get refreshStateStream => _refreshEventStreamController.stream;
-
-
-  HeadLineBloc(){
-
-    // counter = 0;
-
-    // eventStream.listen((event) {
-    //   if(event == CounterAction.increment){
-    //     counter++;
-    //   }
-    //   else if(event == CounterAction.decrement){
-    //     if(counter != 0)counter--;
-    //   }
-    //   else if(event == CounterAction.reset){
-    //     counter = 0;
-    //   }
-
-    //   counterSink.add(counter);
-    // });
-
-    
+  void dispose() {
+    _stateStreamController.close();
+    _eventStreamController.close();
   }
 }
