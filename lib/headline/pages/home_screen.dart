@@ -65,8 +65,10 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                              textAlign: TextAlign.center,
-                              "An error occured\nPlease hit the retry button"),
+                            "An error occured\nPlease hit the retry button",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
                           TextButton(
                             onPressed: () => _headlineBloc.eventSink
                                 .add(HeadLineActions.getHeadlines),
