@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:first_flutter_application/core/constant/constant.dart';
 import 'package:first_flutter_application/headline/model/head_line_domain.dart';
-import 'package:first_flutter_application/headline/pages/web_screen.dart';
+import 'package:first_flutter_application/headline/pages/web_screen_with_push_name.dart';
 import 'package:flutter/material.dart';
 
 class HeadLineItem extends StatelessWidget {
@@ -20,11 +21,12 @@ class HeadLineItem extends StatelessWidget {
     // return MaterialApp(
     //   home:
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  WebPage(webUrl: model.url!, title: model.title!))),
+      onTap: () => _goToWebPage(context, model.title!, model.url!),
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) =>
+      //             WebPage(webUrl: model.url!, title: model.title!))),
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -71,5 +73,10 @@ class HeadLineItem extends StatelessWidget {
       ),
     );
     // );
+  }
+
+  _goToWebPage(BuildContext context, String title, String url) {
+    Navigator.pushNamed(context, HeadLineConstant.web,
+        arguments: WebPageModel(title: title, url: url));
   }
 }
