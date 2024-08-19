@@ -1,4 +1,6 @@
+import 'package:first_flutter_application/core/constant/constant.dart';
 import 'package:first_flutter_application/headline/pages/home_screen.dart';
+import 'package:first_flutter_application/headline/pages/web_screen_with_push_name.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +18,10 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         useMaterial3: true,
       ),
+      initialRoute: HeadLineConstant.home,
+      routes: {
+        HeadLineConstant.web: (context) => WebPageWithPushNamed(),
+      },
       home: const MyHomeScreen(),
     );
   }
